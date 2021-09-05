@@ -1,21 +1,10 @@
-from selenium import webdriver
-import time
+from .base_page import BasePage
+from selenium.webdriver.common.by import By
 
-link = "http://suninjuly.github.io/math.html"
+class MainPage(BasePage): 
+    def go_to_login_page(self):
+        login_link = self.browser.find_element(By.CSS_SELECTOR, "#login_link")
+        login_link.click()
 
-try:
-    browser = webdriver.Chrome()
-    browser.get(link)
-
-#проверяем значение атрибута checked у people_radio
-    people_radio = browser.find_element_by_id("peopleRule")
-    people_checked = people_radio.get_attribute("checked")
-    print("value of people radio: ", people_checked)
-    assert people_checked is not None, "People radio is not selected by default"
-
-
-finally:
-    # закрываем браузер после всех манипуляций
-    browser.quit()
-
-# не забываем оставить пустую строку в конце файла
+    def should_be_login_link(self):
+        self.browser.find_element(By.CSS_SELECTOR, "#login_link_invalid")  
